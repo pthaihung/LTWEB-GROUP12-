@@ -3,13 +3,13 @@
 $pendingOnly = [];
 
 foreach ($orders as $order) {
-    if ($order['status'] != 'completed') {
+    if ($order['status'] == 'pending') {
         $pendingOnly[] = $order;
     }
 }
 
 usort($pendingOnly, function (array $left, array $right): int {
-    return $left['id'] <=> $right['id'];
+    return $right['id'] <=> $left['id']; //sửa oldest first thành newest first
 });
 ?>
 

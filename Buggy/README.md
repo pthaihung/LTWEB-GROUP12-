@@ -38,7 +38,7 @@ http://localhost:8000
 - `/?page=checkout`
 - `/?page=customers`
 - `/?page=reports`
-- `/?page=settings`
+- `/?page=orders`
 
 ## Gợi ý
 
@@ -56,3 +56,41 @@ Sau khi sửa xong:
 - Danh sách đơn hàng hiển thị đúng.
 - Tính toán checkout đúng logic.
 - Báo cáo và cài đặt không còn lỗi syntax.
+
+## Sửa lỗi: 
+## syntax:
+-   /?page=customers : thiếu ; ở line 3
+-   /?page=orders : thiếu `)` ở line 15
+-   /?page=orders : thiếu , ở line 
+## logic:
+- `/?page=checkout` 
+   foreach ($cart as $item) {
+    $subtotal += $products[$item['sku']]['price'] * $item['qty'];}
+
+- `/?page=checkout`
+   $discountPercent = 10;
+   $discountValue   = $subtotal * ($discountPercent / 100); // discount 10% thì phải * 0.1
+   $shippingFee     = $subtotal >= 50 ? 0 : 5;    //  Đơn hàng lớn hơn thì được free
+   $vat             = ($subtotal - $discountValue) * 0.1; // VAT phải tính sau khi trừ đi Discount
+   $grandTotal      = $subtotal - $discountValue + $shippingFee + $vat;
+   
+
+
+- `/?page=dashboard`
+   foreach ($order['items'] as $item) {
+        $price = $products[$item['sku']]['price'];
+        $totalRevenue += $item['qty'] * $price;  // quality * price thì mới ra doanh thu
+   }
+
+- `/?page=orders`
+   foreach ($products as $sku => $product) {
+      if ($product['stock'] <= 5) { //hang stock <= 5 vì đó là SLowStock
+        $lowStockItems[] = $sku . ' - ' . $product['name'];
+      }
+   }
+
+   foreach ($orders as $order) {
+      if ($order['status'] == 'pending') { //nếu có lớn hơn 2 trạng thái thì != complete sẽ wrong 
+        $pendingOnly[] = $order;
+      }
+   }

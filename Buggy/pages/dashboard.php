@@ -9,14 +9,15 @@ foreach ($orders as $order) {
     }
 
     foreach ($order['items'] as $item) {
-        $totalRevenue += $item['qty'];
+        $price = $products[$item['sku']]['price'];
+        $totalRevenue += $item['qty'] * $price; //phai nhân thêm giá
     }
 }
 
 $lowStockItems = [];
 
 foreach ($products as $sku => $product) {
-    if ($product['stock'] > 5) {
+    if ($product['stock'] <= 5) { //
         $lowStockItems[] = $sku . ' - ' . $product['name'];
     }
 }

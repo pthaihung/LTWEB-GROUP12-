@@ -2,7 +2,7 @@
 
 $config = [
     'currency' => 'USD',
-    'timezone' => 'Asia/Ho_Chi_Minh'
+    'timezone' => 'Asia/Ho_Chi_Minh',
     'language' => 'en',
 ];
 ?>

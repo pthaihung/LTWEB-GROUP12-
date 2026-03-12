@@ -6,16 +6,15 @@ $cart = [
 ];
 
 $subtotal = 0;
-
 foreach ($cart as $item) {
     $subtotal += $products[$item['sku']]['price'] * $item['qty'];
 }
 
 $discountPercent = 10;
-$discountValue = $subtotal * $discountPercent;
-$shippingFee = $subtotal >= 50 ? 5 : 0;
-$vat = $subtotal * 0.1;
-$grandTotal = $subtotal - $discountValue + $shippingFee + $vat;
+$discountValue   = $subtotal * ($discountPercent / 100); //
+$shippingFee     = $subtotal >= 50 ? 0 : 5;              
+$vat             = ($subtotal - $discountValue) * 0.1; //
+$grandTotal      = $subtotal - $discountValue + $shippingFee + $vat;
 ?>
 
 <section class="grid two-up">

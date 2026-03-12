@@ -1,6 +1,8 @@
 <?php
 
-$activeCustomers = []
+$activeCustomers = [];
+
+$customers = include __DIR__ . '/../data/customers.php';
 
 foreach ($customers as $customer) {
     if ($customer['active']) {
